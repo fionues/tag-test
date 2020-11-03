@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: oprypin/find-latest-tag@v1
         with:
-          repository: dudagroup/tag-test  # The repository to scan.
+          repository: fionues/tag-test  # The repository to scan.
         id: previoustag  # The step ID to refer to later.
 
       - run: echo "previoustag is ${{ steps.previoustag.outputs.tag }}"
