@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+      - "release/production"
+
+name: Create Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: oprypin/find-latest-tag@v1
+        with:
+          repository: dudagroup/tag-test  # The repository to scan.
+        id: previoustag  # The step ID to refer to later.
+
+      - run: echo "previoustag is ${{ steps.previoustag.outputs.tag }}"
+
+      - name: Checkout code
+        uses: actions/checkout@v2.2.0
+
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.previoustag.outputs.tag }}
+          release_name: Release ${{ steps.previoustag.outputs.tag }}
+          body: |
+            ${{ steps.Changelog.outputs.changelog }}
