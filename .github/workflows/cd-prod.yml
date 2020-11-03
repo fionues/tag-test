@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: oprypin/find-latest-tag@v1
         with:
-          repository: fionues/tag-test  # The repository to scan.
+          repository: ${{ github.repository }}  # The repository to scan. owner/repo
         id: previoustag  # The step ID to refer to later.
 
       - run: echo "previoustag is ${{ steps.previoustag.outputs.tag }}"
