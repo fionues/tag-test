@@ -17,6 +17,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_branches: release/staging*
+          default_bump: false # Which type of bump to use when none is explicitly provided (default: patch). You can also set false to avoid generating a new tag when none is explicitly provided.
         id: tagbump
 
       - run: echo "tagbump changelog is ${{ steps.tagbump.outputs.changelog }}"
