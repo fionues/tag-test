@@ -27,7 +27,7 @@ jobs:
         env:
           REPO: fionues/tag-test
 
-      - run: echo "previoustag is ${{ steps.Changelog.outputs.changelog }}"
+      - run: echo "changelog is ${{ steps.Changelog.outputs.changelog }}"
 
       - name: Create Release
         id: create_release
