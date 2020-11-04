@@ -21,13 +21,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2.2.0
 
-      - name: Changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-        env:
-          REPO: fionues/tag-test
+      - name: Create changelogs
+        id: changelogs
+        uses: heineiuo/create-changelogs@master
 
-      - run: echo "changelog is ${{ steps.Changelog.outputs.changelog }}"
+      - run: echo "changelog is ${{ steps.changelogs.outputs.changelogs }}"
 
       - name: Create Release
         id: create_release
@@ -38,4 +36,4 @@ jobs:
           tag_name: ${{ steps.previoustag.outputs.tag }}
           release_name: Release ${{ steps.previoustag.outputs.tag }}
           body: |
-            ${{ steps.Changelog.outputs.changelog }}
+            ${{ steps.changelogs.outputs.changelogs }}
