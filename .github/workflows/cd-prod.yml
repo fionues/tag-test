@@ -16,6 +16,7 @@ jobs:
         id: previoustag  # The step ID to refer to later.
 
       - run: echo "previoustag is ${{ steps.previoustag.outputs.tag }}"
+      - run: echo "repository is ${{ github.repository }}"
 
       - name: Checkout code
         uses: actions/checkout@v2.2.0
@@ -25,6 +26,8 @@ jobs:
         id: Changelog
         env:
           REPO: fionues/tag-test
+
+      - run: echo "previoustag is ${{ steps.Changelog.outputs.changelog }}"
 
       - name: Create Release
         id: create_release
